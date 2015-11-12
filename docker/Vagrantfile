@@ -1,0 +1,40 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "512"
+  end
+  
+  config.vm.define "ubuntu-trusty64" do |d|
+    d.vm.box = "ubuntu/trusty64"
+    d.vm.provision "docker", version: "1.9.0"
+  end
+  
+  config.vm.define "ubuntu-vivid64" do |d|
+    d.vm.box = "ubuntu/vivid64"
+    d.vm.provision "docker", version: "1.9.0"
+  end
+  
+  config.vm.define "debian-jessie64" do |d|
+    d.vm.box = "debian/jessie64"
+    d.vm.provision "shell", inline: "apt-get install -y apt-transport-https && apt-get update"
+    d.vm.provision "docker", version: "1.9.0"
+  end
+  
+  config.vm.define "debian-wheezy64" do |d|
+    d.vm.box = "debian/wheezy64"
+    d.vm.provision "shell", inline: "apt-get install -y apt-transport-https && apt-get update"
+    d.vm.provision "docker", version: "1.9.0"
+  end
+  
+  config.vm.define "centos-7" do |d|
+    d.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    d.vm.provision "docker"
+  end
+  
+  config.vm.define "centos-6" do |d|
+    d.vm.box = "puppetlabs/centos-6.6-64-puppet"
+    d.vm.provision "docker"
+  end
+end
