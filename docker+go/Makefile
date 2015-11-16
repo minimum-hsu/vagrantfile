@@ -1,6 +1,6 @@
 OUT=../box/docker+go
 
-all: ubuntu14 ubuntu15 debian7 debian8 centos6 centos7
+all: clean ubuntu14 ubuntu15 debian7 debian8 centos6 centos7
 
 ubuntu14: env
 	@box=ubuntu-trusty64
@@ -30,5 +30,6 @@ env:
 	@mkdir -p ${OUT}
 
 clean:
-	@rm -f *.box
+	@vagrant destroy -f
+	@rm -f ${OUT}/*.box
 
