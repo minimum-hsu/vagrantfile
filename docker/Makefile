@@ -22,6 +22,7 @@ centos7: env
 
 env:
 	@mkdir -p ${OUT}
+	@vagrant box update
 
 clean:
 	@vagrant destroy -f

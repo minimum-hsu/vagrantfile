@@ -1,6 +1,7 @@
 rm -f ..\box\docker\*.box
 mkdir ..\box\docker
 vagrant destroy -f
+vagrant box update
 vagrant up ubuntu-trusty64 && vagrant package ubuntu-trusty64 --output ../box/docker/ubuntu-trusty64.box
 vagrant up ubuntu-vivid64 && vagrant package ubuntu-vivid64 --output ../box/docker/ubuntu-vivid64.box
 vagrant up debian-jessie64 && vagrant package debian-jessie64 --output ../box/docker/debian-jessie64.box
