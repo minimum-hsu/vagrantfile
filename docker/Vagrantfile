@@ -12,6 +12,7 @@ Vagrant.configure(2) do |config|
     d.vm.provision "docker", version: "1.9.0"
     d.vm.provision "shell", path: "../common/set_vim.sh"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", inline: "chown -R vagrant: /home/vagrant"
   end
   
   config.vm.define "ubuntu-vivid64" do |d|
@@ -20,6 +21,7 @@ Vagrant.configure(2) do |config|
     d.vm.provision "docker", version: "1.9.0"
     d.vm.provision "shell", path: "../common/set_vim.sh"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", inline: "chown -R vagrant: /home/vagrant"
   end
   
   config.vm.define "debian-jessie64" do |d|
@@ -28,6 +30,7 @@ Vagrant.configure(2) do |config|
     d.vm.provision "docker", version: "1.9.0"
     d.vm.provision "shell", path: "../common/set_vim.sh"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", inline: "chown -R vagrant: /home/vagrant"
   end
   
   config.vm.define "debian-wheezy64" do |d|
@@ -36,6 +39,7 @@ Vagrant.configure(2) do |config|
     d.vm.provision "docker", version: "1.9.0"
     d.vm.provision "shell", path: "../common/set_vim.sh"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", inline: "chown -R vagrant: /home/vagrant"
   end
   
   config.vm.define "centos-7" do |d|
@@ -44,6 +48,7 @@ Vagrant.configure(2) do |config|
     d.vm.provision "shell", inline: "(curl -sSL https://get.docker.com/ | sh) && service docker start && chkconfig docker on"
     d.vm.provision "shell", path: "../common/set_vim.sh"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", inline: "chown -R vagrant: /home/vagrant"
   end
   
   config.vm.define "centos-6" do |d|
@@ -53,5 +58,6 @@ Vagrant.configure(2) do |config|
     d.vm.provision "shell", path: "../common/set_vim.sh"
     d.vm.provision "shell", path: "../common/install_python2.7.10.sh"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", inline: "chown -R vagrant: /home/vagrant"
   end
 end
