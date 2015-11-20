@@ -10,3 +10,4 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> ${CONFIG}
 echo 'export GOPATH=$HOME/workspace' >> ${CONFIG}
 source /etc/bashrc
 mkdir -p /home/vagrant/workspace/src/github.com
+chown -R vagrant: /home/vagrant/workspace

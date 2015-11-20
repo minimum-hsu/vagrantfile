@@ -5,3 +5,4 @@ echo 'set softtabstop=4' >> ${CONFIG}
 echo 'set expandtab' >> ${CONFIG}
 echo 'set smarttab' >> ${CONFIG}
 echo 'set autoindent' >> ${CONFIG}
+chown vagrant: /home/vagrant/.vimrc
