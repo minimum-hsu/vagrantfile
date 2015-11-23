@@ -5,6 +5,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "512"
   end
+  config.ssh.insert_key = false
   
   config.vm.define "ubuntu-trusty64" do |d|
     d.vm.box = "ubuntu/trusty64"
