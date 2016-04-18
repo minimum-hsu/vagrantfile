@@ -3,56 +3,76 @@
 
 Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "512"
+    vb.memory = "2048"
   end
   config.ssh.insert_key = false
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  
+  config.vm.define "ubuntu-xenial64" do |d|
+    d.vm.box = "ubuntu/xenial64"
+    d.vm.provision "shell", inline: "apt-get update && apt-get upgrade -y"
+    d.vm.provision "shell", inline: "apt-get install -y zip unzip"
+    d.vm.provision "shell", path: "../common/install_docker.sh"
+    d.vm.provision "shell", inline: "gpasswd -a vagrant docker"
+    d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", path: "../common/set_vim.sh"
+  end
   
   config.vm.define "ubuntu-trusty64" do |d|
     d.vm.box = "ubuntu/trusty64"
-    d.vm.provision "shell", inline: "apt-get update"
-    d.vm.provision "docker", version: "1.9.0"
-    d.vm.provision "shell", path: "../common/set_vim.sh"
+    d.vm.provision "shell", inline: "apt-get update && apt-get upgrade -y"
+    d.vm.provision "shell", inline: "apt-get install -y zip unzip"
+    d.vm.provision "shell", path: "../common/install_docker.sh"
+    d.vm.provision "shell", inline: "gpasswd -a vagrant docker"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
-  end
-  
-  config.vm.define "ubuntu-vivid64" do |d|
-    d.vm.box = "ubuntu/vivid64"
-    d.vm.provision "shell", inline: "apt-get update"
-    d.vm.provision "docker", version: "1.9.0"
     d.vm.provision "shell", path: "../common/set_vim.sh"
-    d.vm.provision "shell", path: "../common/install_dockercompose.sh"
   end
   
   config.vm.define "debian-jessie64" do |d|
     d.vm.box = "debian/jessie64"
-    d.vm.provision "shell", inline: "apt-get install -y apt-transport-https && apt-get update"
-    d.vm.provision "docker", version: "1.9.0"
-    d.vm.provision "shell", path: "../common/set_vim.sh"
+    d.vm.provision "shell", inline: "apt-get update && apt-get upgrade -y"
+    d.vm.provision "shell", inline: "apt-get install -y vim zip unzip"
+    d.vm.provision "shell", path: "../common/install_docker.sh"
+    d.vm.provision "shell", inline: "gpasswd -a vagrant docker"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", path: "../common/set_vim.sh"
   end
   
   config.vm.define "debian-wheezy64" do |d|
     d.vm.box = "debian/wheezy64"
-    d.vm.provision "shell", inline: "apt-get install -y apt-transport-https && apt-get update"
-    d.vm.provision "docker", version: "1.9.0"
-    d.vm.provision "shell", path: "../common/set_vim.sh"
+    d.vm.provision "shell", inline: "apt-get install -y apt-transport-https"
+    d.vm.provision "shell", inline: "apt-get update"
+    d.vm.provision "shell", inline: "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' upgrade"
+    d.vm.provision "shell", inline: "apt-get install -y vim git zip unzip"
+    d.vm.provision "shell", path: "../common/install_docker.sh"
+    d.vm.provision "shell", inline: "gpasswd -a vagrant docker"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", path: "../common/set_vim.sh"
   end
   
   config.vm.define "centos-7" do |d|
     d.vm.box = "puppetlabs/centos-7.0-64-puppet"
-    d.vm.provision "shell", inline: "yum update -y && yum install -y epel-release"
-    d.vm.provision "shell", inline: "(curl -sSL https://get.docker.com/ | sh) && service docker start && chkconfig docker on"
-    d.vm.provision "shell", path: "../common/set_vim.sh"
+    d.vm.provision "shell", inline: "yum update -y"
+    d.vm.provision "shell", inline: "yum install -y vim redhat-lsb"
+    d.vm.provision "shell", inline: "rpm -i http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm"
+    d.vm.provision "shell", path: "../common/install_python_2.7.11.sh"
+    d.vm.provision "shell", path: "../common/install_python_3.5.1.sh"
+    d.vm.provision "shell", path: "../common/install_docker.sh"
+    d.vm.provision "shell", inline: "gpasswd -a vagrant docker"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", path: "../common/set_vim.sh"
   end
   
   config.vm.define "centos-6" do |d|
     d.vm.box = "puppetlabs/centos-6.6-64-puppet"
-    d.vm.provision "shell", inline: "yum update -y && rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
-    d.vm.provision "docker"
-    d.vm.provision "shell", path: "../common/set_vim.sh"
-    d.vm.provision "shell", path: "../common/install_python2.7.10.sh"
+    d.vm.provision "shell", inline: "yum update -y"
+    d.vm.provision "shell", inline: "yum install -y vim git zip unzip redhat-lsb"
+    d.vm.provision "shell", inline: "rpm -i http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
+    d.vm.provision "shell", path: "../common/install_python_2.7.11.sh"
+    d.vm.provision "shell", path: "../common/install_python_3.5.1.sh"
+    d.vm.provision "shell", path: "../common/install_docker.sh"
+    d.vm.provision "shell", inline: "gpasswd -a vagrant docker"
     d.vm.provision "shell", path: "../common/install_dockercompose.sh"
+    d.vm.provision "shell", path: "../common/set_vim.sh"
   end
 end

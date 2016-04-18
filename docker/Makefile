@@ -5,8 +5,8 @@ all: clean ubuntu14 ubuntu15 debian7 debian8 centos6 centos7
 ubuntu14: env
 	@vagrant up ubuntu-trusty64 && vagrant package ubuntu-trusty64 --output ${OUT}/ubuntu-trusty64.box
 
-ubuntu15: env
-	@vagrant up ubuntu-vivid64 && vagrant package ubuntu-vivid64 --output ${OUT}/ubuntu-vivid64.box
+ubuntu16: env
+	@vagrant up ubuntu-xenial64 && vagrant package ubuntu-xenial64 --output ${OUT}/ubuntu-xenial64.box
 
 debian7: env
 	@vagrant up debian-wheezy64 && vagrant package debian-wheezy64 --output ${OUT}/debian-wheezy64.box
